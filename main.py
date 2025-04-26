@@ -8,29 +8,23 @@ mui = web.module_from_template("react", "@mui/material",  fallback=" ⏳")
 Container = web.export(mui, "Container")
 Grid = web.export(mui, "Grid")
 
+def tarjetas(productos):
+    def tarjeta(producto):
+        return Grid (
+            {"item": True, "sm": 6, "md": 4, "lg": 3},
+            html.h1(producto['nombre'])
+        )
+    
+    return Grid (
+        {"container": True, "spacing": "8"},
+        [ tarjeta(producto) for producto in productos]
+    )
+        
 @component
 def App():
     return Container(
         {"maxWidth": "md"},
-        Grid (
-            {"container": True, "spacing": "8"},
-            Grid(
-                {"item": True, "sm": 6, "md": 4, "lg": 3},
-                html.h1("producto 1")
-            ),
-            Grid(
-                {"item": True, "sm": 6, "md": 4, "lg": 3},
-                html.h1("producto 1")
-            ),
-            Grid(
-                {"item": True, "sm": 6, "md": 4, "lg": 3},
-                html.h1("producto 1")
-            ),
-            Grid(
-                {"item": True, "sm": 6, "md": 4, "lg": 3},
-                html.h1("producto 1")
-            ),
-        )
+        tarjetas(productos)
     )
 
 app = Flask(__name__)
